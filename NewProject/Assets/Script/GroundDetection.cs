@@ -72,7 +72,9 @@ public class GroundDetection : MonoBehaviour
     private void UpdateMeshIfNeeded()
     {
         _detectedPlane.GetBoundaryPolygon(_meshVertices);
-
+        foreach (Vector3 i in _meshVertices) {
+            Debug.Log("Boundary Polygon : " + i);
+        }
         if (AreVerticesListsEqual(_previousFrameMeshVertices, _meshVertices))
         {
             return;
@@ -180,5 +182,11 @@ public class GroundDetection : MonoBehaviour
         }
 
         return true;
+    }
+    private void RANSAC(List<Vector3> Vertices)
+    {
+        Vertices = _meshVertices;
+
+        
     }
 }
