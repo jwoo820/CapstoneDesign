@@ -8,40 +8,40 @@ public class PlaneFitting : MonoBehaviour
     // 2. outliner 기준을 결정
     // 3. 기준치 이상의 평면들은 모두 삭제 시킴
     // Ransac 알고리즘 구현
-    // Start is called before the first frame update
-    private List<DetectedPlane> _planeList = new List<DetectedPlane>();
-    private List<Vector3> _outliner = new List<Vector3>();
-    private List<Vector3> _inliner = new List<Vector3>();
-    public void Initialize(DetectedPlane plane)
-    {
+    // vertex 좌표먼 잡아주면 됨
+    List<Vector3> _vertices = new List<Vector3>();
+    List<Vector3> _cachedVertices = new List<Vector3>();
 
+
+    private void init(List<Vector3> vertices)
+    {
+        for (int i = 0; i < vertices.Count; i++)
+        {
+            _cachedVertices[i] = vertices[i];
+        }
     }
+    // Start is called before the first frame update
 
     public void Start()
     {
-
+        init(_vertices);
     }
 
     // Update is called once per frame
     public void Update()
     {
-
+        fitting(_cachedVertices);
     }
-    // 1. boundary Polygon 가져옴
-    // 2. Mesh Vertices에 RANSAC을 적용
-    // 3. RANSAC을 거쳐서 Indices return..
-    private Vector3 RANSAC(List<Vector3> Vertices)
-    {
-        Vertices = _outliner;
-        // y좌표만 출력 -> data
-        List<float> ysave = new List<float>();
-        List<float> save = new List<float>();
-        List<float> result = new List<float>();
-        for (int i = 0; i < Vertices.Count; i++)
-        {
-            ysave[i] = Vertices[i].y;
-        }
 
-        return Vertices[0];
+    private float fitting(List<Vector3> vertices)
+    {
+        float threshold = 0f;
+        
+        for (int i=0; i< vertices.Count; i++)
+        {
+            threshold += vertices[i].y;
+        }
+        threshold /= vertices.Count;
+        return threshold;
     }
 }

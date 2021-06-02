@@ -12,7 +12,7 @@ public class GroundDetection : MonoBehaviour
     private Vector3 _planeCenter = new Vector3();
 
     private List<Color> _meshColors = new List<Color>();
-
+    // triangles index
     private List<int> _meshIndices = new List<int>();
 
     private Mesh _mesh;
@@ -72,6 +72,10 @@ public class GroundDetection : MonoBehaviour
     private void UpdateMeshIfNeeded()
     {
         _detectedPlane.GetBoundaryPolygon(_meshVertices);
+        for (int i = 0; i < 10; i++)
+        {
+            Debug.Log("init vertices " + i + _meshVertices[i]);
+        }
         // debug Boundary Polygon 
         //foreach (Vector3 i in _meshVertices)
         //{
@@ -122,7 +126,7 @@ public class GroundDetection : MonoBehaviour
         {
             Vector3 v = _meshVertices[i];
 
-            // Vector from plane center to current point
+            // Vector from plane center to current point -> distance
             Vector3 d = v - _planeCenter;
 
             float scale = 1.0f - Mathf.Min(featherLength / d.magnitude, featherScale);
@@ -142,7 +146,6 @@ public class GroundDetection : MonoBehaviour
             _meshIndices.Add(firstInnerVertex + i + 1);
             _meshIndices.Add(firstInnerVertex + i + 2);
         }
-        // 여기가 RANSAC인듯??, inliner, outliner...
         // Generate triangle (0, 1, 4), (4, 1, 5), (5, 1, 2), (5, 2, 6), (6, 2, 3), (6, 3, 7)
         // (7, 3, 0), (7, 0, 4) -> outer vertex
         for (int i = 0; i < planePolygonCount; ++i)
@@ -165,10 +168,6 @@ public class GroundDetection : MonoBehaviour
         _mesh.SetVertices(_meshVertices);
         _mesh.SetTriangles(_meshIndices, 0);
         _mesh.SetColors(_meshColors);
-        if (true)
-        {
-
-        }
     }
 
     private bool AreVerticesListsEqual(List<Vector3> firstList, List<Vector3> secondList)

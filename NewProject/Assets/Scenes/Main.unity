@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 230409960}
   - component: {fileID: 230409961}
+  - component: {fileID: 230409962}
   m_Layer: 0
   m_Name: Ground Detection
   m_TagString: Untagged
@@ -167,6 +168,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DetectedPlanePrefab: {fileID: 1654175882956584, guid: 61766ed8858bb40dd85a13d14a7b2a65, type: 3}
+--- !u!114 &230409962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230409959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b7a9d353af334879bf7b3ad6e7da282, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &320724044
 GameObject:
   m_ObjectHideFlags: 0

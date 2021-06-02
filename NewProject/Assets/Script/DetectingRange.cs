@@ -5,12 +5,14 @@ using UnityEngine;
 public class DetectingRange : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Transform target;
+    // set ROI
+    // Height : 3m
+    // widht : 1m
+    //depth : 3 => up : 1m, down : -2m
 
-    private Transform tr;
     void Start()
     {
-        tr = GetComponent<Transform>();
+
     }
 
     // Update is called once per frame

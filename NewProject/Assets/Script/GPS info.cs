@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GPinfo : MonoBehaviour
+public class GPSinfo : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
