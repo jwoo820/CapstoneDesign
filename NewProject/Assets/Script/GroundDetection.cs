@@ -166,6 +166,10 @@ public class GroundDetection : MonoBehaviour
         _mesh.SetVertices(_meshVertices);
         _mesh.SetTriangles(_meshIndices, 0);
         _mesh.SetColors(_meshColors);
+        if (true)
+        {
+
+        }
     }
 
     private bool AreVerticesListsEqual(List<Vector3> firstList, List<Vector3> secondList)
