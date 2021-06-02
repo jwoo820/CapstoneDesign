@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GoogleARCore;
-public class PlaneProcess : MonoBehaviour
+public class PlaneFitting : MonoBehaviour
 {
     // 1. 탐색된 평면의 좌표의 평균을 구함
     // 2. outliner 기준을 결정
@@ -19,13 +19,13 @@ public class PlaneProcess : MonoBehaviour
 
     public void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     public void Update()
     {
-        
+
     }
     // 1. boundary Polygon 가져옴
     // 2. Mesh Vertices에 RANSAC을 적용

@@ -19,7 +19,6 @@ public class GroundDetection : MonoBehaviour
 
     private MeshRenderer _meshRenderer;
 
-    private PlaneProcess _planeProcess;
     /// <summary>
     /// The Unity Awake() method.
     /// </summary>
