@@ -1,0 +1,113 @@
+{
+    "m_SelectedDeviceId": "R59M702NTMF",
+    "m_SelectedPackage": {
+        "deviceId": "R59M702NTMF",
+        "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+        "processId": 1927,
+        "exited": false
+    },
+    "m_SelectedPriority": 0,
+    "m_KnownPackagesForSerialization": [
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.android.settings",
+            "processId": 6635,
+            "exited": true
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.android.chrome",
+            "processId": 17080,
+            "exited": true
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 16447,
+            "exited": true
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 6011,
+            "exited": true
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 24985,
+            "exited": false
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 30436,
+            "exited": false
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 1927,
+            "exited": false
+        },
+        {
+            "deviceId": "192.168.0.176:5555",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 21235,
+            "exited": false
+        }
+    ],
+    "m_Tags": {
+        "m_Entries": [
+            {
+                "m_Name": "Filter by all listed tags",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "No Filter",
+                "m_Selected": true
+            },
+            {
+                "m_Name": "",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "Tag Control...",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "Unity",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "CRASH",
+                "m_Selected": false
+            }
+        ]
+    },
+    "m_MemoryViewerState": {
+        "MemoryWindowHeight": 300.0,
+        "MemoryWindowWidth": 170.0,
+        "MemoryTypeEnabled": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        ],
+        "MemoryGroup": 2,
+        "Behavior": 0
+    },
+    "m_Filter": "Bound",
+    "m_FilterIsRegularExpression": false,
+    "m_SymbolPaths": []
+}

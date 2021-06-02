@@ -24,7 +24,6 @@ namespace GoogleARCore
     using System.Collections.Generic;
     using GoogleARCoreInternal;
     using UnityEngine;
-
     /// <summary>
     /// Provides a snapshot of the state of ARCore at a specific timestamp associated with the
     /// current frame.  Frame holds information about ARCore's state including the pose of the

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GoogleARCore;
+
 public class GroundDetection : MonoBehaviour
 {
     private DetectedPlane _detectedPlane;
-
     // Keep previous frame's mesh polygon to avoid mesh update every frame.
     private List<Vector3> _previousFrameMeshVertices = new List<Vector3>();
     private List<Vector3> _meshVertices = new List<Vector3>();
@@ -19,6 +19,7 @@ public class GroundDetection : MonoBehaviour
 
     private MeshRenderer _meshRenderer;
 
+    private PlaneProcess _planeProcess;
     /// <summary>
     /// The Unity Awake() method.
     /// </summary>
@@ -72,9 +73,11 @@ public class GroundDetection : MonoBehaviour
     private void UpdateMeshIfNeeded()
     {
         _detectedPlane.GetBoundaryPolygon(_meshVertices);
-        foreach (Vector3 i in _meshVertices) {
-            Debug.Log("Boundary Polygon : " + i);
-        }
+        // debug Boundary Polygon 
+        //foreach (Vector3 i in _meshVertices)
+        //{
+        //    Debug.Log("Boundary Polygon : " + i);
+        //}
         if (AreVerticesListsEqual(_previousFrameMeshVertices, _meshVertices))
         {
             return;
@@ -84,14 +87,13 @@ public class GroundDetection : MonoBehaviour
         _previousFrameMeshVertices.AddRange(_meshVertices);
 
         _planeCenter = _detectedPlane.CenterPose.position;
-        //Plane Center Pose Position
-        Debug.Log("Plane's Center Pose : " + _planeCenter);
+        //Debug.Log("Plane Center : "+_planeCenter);
         Vector3 planeNormal = _detectedPlane.CenterPose.rotation * Vector3.up;
 
         _meshRenderer.material.SetVector("_PlaneNormal", planeNormal);
 
         int planePolygonCount = _meshVertices.Count;
-
+        Debug.Log("Count : " + planePolygonCount);
         // The following code converts a polygon to a mesh with two polygons, inner polygon
         // renders with 100% opacity and fade out to outter polygon with opacity 0%, as shown
         // below.  The indices shown in the diagram are used in comments below.
@@ -134,16 +136,16 @@ public class GroundDetection : MonoBehaviour
         int firstOuterVertex = 0;
         int firstInnerVertex = planePolygonCount;
 
-        // Generate triangle (4, 5, 6) and (4, 6, 7).
+        // Generate triangle (4, 5, 6) and (4, 6, 7). -> inner vertex
         for (int i = 0; i < planePolygonCount - 2; ++i)
         {
             _meshIndices.Add(firstInnerVertex);
             _meshIndices.Add(firstInnerVertex + i + 1);
             _meshIndices.Add(firstInnerVertex + i + 2);
         }
-
+        // 여기가 RANSAC인듯??, inliner, outliner...
         // Generate triangle (0, 1, 4), (4, 1, 5), (5, 1, 2), (5, 2, 6), (6, 2, 3), (6, 3, 7)
-        // (7, 3, 0), (7, 0, 4)
+        // (7, 3, 0), (7, 0, 4) -> outer vertex
         for (int i = 0; i < planePolygonCount; ++i)
         {
             int outerVertex1 = firstOuterVertex + i;
@@ -182,11 +184,5 @@ public class GroundDetection : MonoBehaviour
         }
 
         return true;
-    }
-    private void RANSAC(List<Vector3> Vertices)
-    {
-        Vertices = _meshVertices;
-
-        
     }
 }
