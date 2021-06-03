@@ -72,15 +72,31 @@ public class GroundDetection : MonoBehaviour
     private void UpdateMeshIfNeeded()
     {
         _detectedPlane.GetBoundaryPolygon(_meshVertices);
-        for (int i = 0; i < 10; i++)
+        //_meshVertices.Clear();
+        //Vetex Remove Test->이쪽에서 란삭으로 지우면 될듯 ??
+        for (int i = 0; i < _meshVertices.Count; i++)
         {
-            Debug.Log("init vertices " + i + _meshVertices[i]);
+            Debug.Log("Data" + i + _meshVertices[i]);
         }
-        // debug Boundary Polygon 
-        //foreach (Vector3 i in _meshVertices)
-        //{
-        //    Debug.Log("Boundary Polygon : " + i);
-        //}
+        for (int i = 0; i < _meshVertices.Count; i++)
+        {
+            if (_meshVertices[i].y > -1.0f)
+            {
+                Debug.Log("Remove Vertex" + i + _meshVertices[i]);
+                // 삭제가 안됨 ㅅㅂ
+
+                _meshVertices.RemoveAt(i);
+            }
+            //else
+            //{
+            //    Debug.Log("Create Vertex" + i + _meshVertices[i]);
+            //}
+        }
+        for (int i = 0; i < _meshVertices.Count; i++)
+        {
+             Debug.Log("Create Vertex" + i + _meshVertices[i]);
+          
+        }
         if (AreVerticesListsEqual(_previousFrameMeshVertices, _meshVertices))
         {
             return;
@@ -90,13 +106,12 @@ public class GroundDetection : MonoBehaviour
         _previousFrameMeshVertices.AddRange(_meshVertices);
 
         _planeCenter = _detectedPlane.CenterPose.position;
-        //Debug.Log("Plane Center : "+_planeCenter);
+
         Vector3 planeNormal = _detectedPlane.CenterPose.rotation * Vector3.up;
 
         _meshRenderer.material.SetVector("_PlaneNormal", planeNormal);
 
         int planePolygonCount = _meshVertices.Count;
-        Debug.Log("Count : " + planePolygonCount);
         // The following code converts a polygon to a mesh with two polygons, inner polygon
         // renders with 100% opacity and fade out to outter polygon with opacity 0%, as shown
         // below.  The indices shown in the diagram are used in comments below.
@@ -121,7 +136,7 @@ public class GroundDetection : MonoBehaviour
         // Feather scale over the distance between plane center and vertices.
         const float featherScale = 0.2f;
 
-        // Add vertex 4 to 7.
+        // Add vertex 4 to 7. -> inner vertices
         for (int i = 0; i < planePolygonCount; ++i)
         {
             Vector3 v = _meshVertices[i];
@@ -130,9 +145,10 @@ public class GroundDetection : MonoBehaviour
             Vector3 d = v - _planeCenter;
 
             float scale = 1.0f - Mathf.Min(featherLength / d.magnitude, featherScale);
+            // remove Test!!!!!!!!!
+            //Debug.Log("Remove Upper Plane !!!!");
             _meshVertices.Add((scale * d) + _planeCenter);
-
-            _meshColors.Add(Color.white);
+            _meshColors.Add(Color.red);
         }
 
         _meshIndices.Clear();
@@ -168,6 +184,7 @@ public class GroundDetection : MonoBehaviour
         _mesh.SetVertices(_meshVertices);
         _mesh.SetTriangles(_meshIndices, 0);
         _mesh.SetColors(_meshColors);
+
     }
 
     private bool AreVerticesListsEqual(List<Vector3> firstList, List<Vector3> secondList)
