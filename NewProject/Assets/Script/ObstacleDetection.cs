@@ -17,6 +17,9 @@ public class ObstacleDetection : MonoBehaviour
     private Resolution _cachedResolution;
     private Color _cachedColor;
     private LinkedList<PointInfo> _cachedPoints;
+    private GroundDetection _groundDetection;
+    private float _planeCenterSum;
+    private float _planeCenterAvg;
 
     void Start()
     {
@@ -41,6 +44,7 @@ public class ObstacleDetection : MonoBehaviour
 
         _cachedPoints = new LinkedList<PointInfo>();
 
+        _groundDetection = new GroundDetection();
     }
 
     /// <summary>
@@ -78,7 +82,14 @@ public class ObstacleDetection : MonoBehaviour
         {
             AddAllPointsToCache();
         }
-
+        // get plane center pose.y avg
+        int list = _groundDetection._planeCenterList.Count;
+        for (int i = 0; i < list; i++)
+        {
+            _planeCenterSum += _groundDetection._planeCenterList[i].y;
+        }
+        _planeCenterAvg = _planeCenterSum / list;
+        Debug.Log("Plane Center Avg : " + _planeCenterAvg);
         UpdateMesh();
     }
 

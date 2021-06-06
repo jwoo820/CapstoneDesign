@@ -9,8 +9,8 @@ public class GroundDetection : MonoBehaviour
     // Keep previous frame's mesh polygon to avoid mesh update every frame.
     private List<Vector3> _previousFrameMeshVertices = new List<Vector3>();
     private List<Vector3> _meshVertices = new List<Vector3>();
-    private Vector3 _planeCenter = new Vector3();
-
+    public Vector3 _planeCenter = new Vector3();
+    public List<Vector3> _planeCenterList = new List<Vector3>();
     private List<Color> _meshColors = new List<Color>();
     // triangles index
     private List<int> _meshIndices = new List<int>();
@@ -71,6 +71,7 @@ public class GroundDetection : MonoBehaviour
     /// </summary>
     private void UpdateMeshIfNeeded()
     {
+        // 여기서 point 받아옴 확인함@@@@@
         _detectedPlane.GetBoundaryPolygon(_meshVertices);
 
         if (AreVerticesListsEqual(_previousFrameMeshVertices, _meshVertices))
@@ -82,10 +83,10 @@ public class GroundDetection : MonoBehaviour
         _previousFrameMeshVertices.AddRange(_meshVertices);
 
         _planeCenter = _detectedPlane.CenterPose.position;
+        // plane list 저장
+        _planeCenterList.Add(_planeCenter);
         // Plane's Y Vector
-        //Debug.Log("planeCenter : " + _planeCenter);
         Vector3 planeNormal = _detectedPlane.CenterPose.rotation * Vector3.up;
-        //Debug.Log("planeNormal : " + planeNormal);
         _meshRenderer.material.SetVector("_PlaneNormal", planeNormal);
 
         int planePolygonCount = _meshVertices.Count;
@@ -113,14 +114,14 @@ public class GroundDetection : MonoBehaviour
         // Feather scale over the distance between plane center and vertices.
         const float featherScale = 0.2f;
 
-        // Add vertex 4 to 7. -> inner vertices
+        //Add vertex 4 to 7. -> inner vertices
         for (int i = 0; i < planePolygonCount; ++i)
         {
             Vector3 v = _meshVertices[i];
 
             // Vector from plane center to current point
             Vector3 d = v - _planeCenter;
-
+            //d.magnitude -> 벡터 길이 반환
             float scale = 1.0f - Mathf.Min(featherLength / d.magnitude, featherScale);
             _meshVertices.Add((scale * d) + _planeCenter);
             _meshColors.Add(Color.white);
