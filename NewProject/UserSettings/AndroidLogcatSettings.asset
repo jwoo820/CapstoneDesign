@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R59M702NTMF",
         "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-        "processId": 3518,
+        "processId": 11850,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -13,24 +13,6 @@
             "name": "com.sec.android.app.launcher",
             "processId": 10650,
             "exited": false
-        },
-        {
-            "deviceId": "R59M702NTMF",
-            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-            "processId": 20806,
-            "exited": true
-        },
-        {
-            "deviceId": "R59M702NTMF",
-            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-            "processId": 24698,
-            "exited": true
-        },
-        {
-            "deviceId": "R59M702NTMF",
-            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-            "processId": 26121,
-            "exited": true
         },
         {
             "deviceId": "R59M702NTMF",
@@ -48,6 +30,30 @@
             "deviceId": "R59M702NTMF",
             "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
             "processId": 3518,
+            "exited": true
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 4667,
+            "exited": true
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 31861,
+            "exited": true
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 10528,
+            "exited": false
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 11850,
             "exited": false
         },
         {

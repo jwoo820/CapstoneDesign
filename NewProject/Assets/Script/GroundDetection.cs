@@ -72,31 +72,7 @@ public class GroundDetection : MonoBehaviour
     private void UpdateMeshIfNeeded()
     {
         _detectedPlane.GetBoundaryPolygon(_meshVertices);
-        //_meshVertices.Clear();
-        //Vetex Remove Test->이쪽에서 란삭으로 지우면 될듯 ??
-        for (int i = 0; i < _meshVertices.Count; i++)
-        {
-            Debug.Log("Data" + i + _meshVertices[i]);
-        }
-        for (int i = 0; i < _meshVertices.Count; i++)
-        {
-            if (_meshVertices[i].y > -1.0f)
-            {
-                Debug.Log("Remove Vertex" + i + _meshVertices[i]);
-                // 삭제가 안됨 ㅅㅂ
 
-                _meshVertices.RemoveAt(i);
-            }
-            //else
-            //{
-            //    Debug.Log("Create Vertex" + i + _meshVertices[i]);
-            //}
-        }
-        for (int i = 0; i < _meshVertices.Count; i++)
-        {
-             Debug.Log("Create Vertex" + i + _meshVertices[i]);
-          
-        }
         if (AreVerticesListsEqual(_previousFrameMeshVertices, _meshVertices))
         {
             return;
@@ -106,9 +82,10 @@ public class GroundDetection : MonoBehaviour
         _previousFrameMeshVertices.AddRange(_meshVertices);
 
         _planeCenter = _detectedPlane.CenterPose.position;
-
+        // Plane's Y Vector
+        //Debug.Log("planeCenter : " + _planeCenter);
         Vector3 planeNormal = _detectedPlane.CenterPose.rotation * Vector3.up;
-
+        //Debug.Log("planeNormal : " + planeNormal);
         _meshRenderer.material.SetVector("_PlaneNormal", planeNormal);
 
         int planePolygonCount = _meshVertices.Count;
@@ -141,14 +118,12 @@ public class GroundDetection : MonoBehaviour
         {
             Vector3 v = _meshVertices[i];
 
-            // Vector from plane center to current point -> distance
+            // Vector from plane center to current point
             Vector3 d = v - _planeCenter;
 
             float scale = 1.0f - Mathf.Min(featherLength / d.magnitude, featherScale);
-            // remove Test!!!!!!!!!
-            //Debug.Log("Remove Upper Plane !!!!");
             _meshVertices.Add((scale * d) + _planeCenter);
-            _meshColors.Add(Color.red);
+            _meshColors.Add(Color.white);
         }
 
         _meshIndices.Clear();
