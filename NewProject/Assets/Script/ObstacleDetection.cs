@@ -17,10 +17,8 @@ public class ObstacleDetection : MonoBehaviour
     private Resolution _cachedResolution;
     private Color _cachedColor;
     private LinkedList<PointInfo> _cachedPoints;
-    private GroundDetection _groundDetection;
-    private float _planeCenterSum;
-    private float _planeCenterAvg;
-
+    // 장애물 기준점 결정
+    private float _criteria;
     void Start()
     {
         _meshRenderer = GetComponent<MeshRenderer>();
@@ -43,8 +41,6 @@ public class ObstacleDetection : MonoBehaviour
         _meshRenderer.SetPropertyBlock(_propertyBlock);
 
         _cachedPoints = new LinkedList<PointInfo>();
-
-        _groundDetection = new GroundDetection();
     }
 
     /// <summary>
@@ -82,14 +78,8 @@ public class ObstacleDetection : MonoBehaviour
         {
             AddAllPointsToCache();
         }
-        // get plane center pose.y avg
-        int list = _groundDetection._planeCenterList.Count;
-        for (int i = 0; i < list; i++)
-        {
-            _planeCenterSum += _groundDetection._planeCenterList[i].y;
-        }
-        _planeCenterAvg = _planeCenterSum / list;
-        Debug.Log("Plane Center Avg : " + _planeCenterAvg);
+        _criteria = GroundDetection.getCenterPoseListAvg();
+        Debug.Log("Test : " + _criteria);
         UpdateMesh();
     }
 
@@ -185,6 +175,12 @@ public class ObstacleDetection : MonoBehaviour
         _mesh.SetIndices(Enumerable.Range(0, _cachedPoints.Count).ToArray(),
                           MeshTopology.Points, 0);
     }
+
+    private void setObstacleCriteria()
+    {
+
+    }
+
     private struct PointInfo
     {
         /// <summary>

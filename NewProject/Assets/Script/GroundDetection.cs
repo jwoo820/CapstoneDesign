@@ -5,12 +5,11 @@ using GoogleARCore;
 
 public class GroundDetection : MonoBehaviour
 {
-    private DetectedPlane _detectedPlane;
+    private static DetectedPlane _detectedPlane;
     // Keep previous frame's mesh polygon to avoid mesh update every frame.
     private List<Vector3> _previousFrameMeshVertices = new List<Vector3>();
     private List<Vector3> _meshVertices = new List<Vector3>();
     public Vector3 _planeCenter = new Vector3();
-    public List<Vector3> _planeCenterList = new List<Vector3>();
     private List<Color> _meshColors = new List<Color>();
     // triangles index
     private List<int> _meshIndices = new List<int>();
@@ -18,7 +17,9 @@ public class GroundDetection : MonoBehaviour
     private Mesh _mesh;
 
     private MeshRenderer _meshRenderer;
-
+    // 평균값 저장
+    public static List<Vector3> _planeCenterList = new List<Vector3>();
+    
     /// <summary>
     /// The Unity Awake() method.
     /// </summary>
@@ -179,5 +180,17 @@ public class GroundDetection : MonoBehaviour
         }
 
         return true;
+    }
+    // get Center Pose List Plane의 평균값을 이용하여 기준점 정립
+    public static float getCenterPoseListAvg()
+    {
+        float avg = 0;
+        float sum = 0;
+        for (int i = 0; i < _planeCenterList.Count; i++)
+        {
+            sum += _planeCenterList[i].y;
+        }
+        avg = sum / _planeCenterList.Count;
+        return avg;
     }
 }

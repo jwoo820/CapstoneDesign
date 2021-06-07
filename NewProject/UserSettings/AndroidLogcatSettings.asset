@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R59M702NTMF",
         "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-        "processId": 18860,
+        "processId": 10713,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -17,37 +17,55 @@
         {
             "deviceId": "R59M702NTMF",
             "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-            "processId": 10528,
-            "exited": true
-        },
-        {
-            "deviceId": "R59M702NTMF",
-            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-            "processId": 11850,
-            "exited": true
-        },
-        {
-            "deviceId": "R59M702NTMF",
-            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-            "processId": 13501,
-            "exited": true
-        },
-        {
-            "deviceId": "R59M702NTMF",
-            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-            "processId": 14757,
-            "exited": true
-        },
-        {
-            "deviceId": "R59M702NTMF",
-            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-            "processId": 17627,
-            "exited": true
-        },
-        {
-            "deviceId": "R59M702NTMF",
-            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
             "processId": 18860,
+            "exited": true
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 23647,
+            "exited": true
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 24793,
+            "exited": true
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 25684,
+            "exited": true
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 26732,
+            "exited": true
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 29107,
+            "exited": false
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 30145,
+            "exited": false
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 30857,
+            "exited": false
+        },
+        {
+            "deviceId": "R59M702NTMF",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 10713,
             "exited": false
         },
         {
