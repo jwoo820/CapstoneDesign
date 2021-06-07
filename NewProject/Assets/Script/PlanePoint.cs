@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GoogleARCore;
-public class ObstacleDetection : MonoBehaviour
+public class PlanePoint : MonoBehaviour
 {
     public Color PointColor;
     public int MaxPointsToAddPerFrame = 1;
@@ -17,7 +17,6 @@ public class ObstacleDetection : MonoBehaviour
     private Resolution _cachedResolution;
     private Color _cachedColor;
     private LinkedList<PointInfo> _cachedPoints;
-
     // 장애물 기준점 결정
     private float _criteria;
     void Start()
@@ -28,12 +27,14 @@ public class ObstacleDetection : MonoBehaviour
         {
             _mesh = new Mesh();
         }
-
         _mesh.Clear();
         _cachedColor = PointColor;
+
         _screenWidthId = Shader.PropertyToID("_ScreenWidth");
         _screenHeightId = Shader.PropertyToID("_ScreenHeight");
+
         _colorId = Shader.PropertyToID("_Color");
+
         _propertyBlock = new MaterialPropertyBlock();
         _meshRenderer.GetPropertyBlock(_propertyBlock);
         _propertyBlock.SetColor(_colorId, _cachedColor);
@@ -72,14 +73,11 @@ public class ObstacleDetection : MonoBehaviour
         {
             UpdateColor();
         }
-
         else
         {
             AddAllPointsToCache();
         }
         _criteria = GroundDetection.ObstacleCriteria();
-        Debug.Log("Test : " + _criteria);
-        //Debug.Log("Size : " + GroundDetection._planeCenterList.Count);
         UpdateMesh();
     }
 
@@ -130,10 +128,10 @@ public class ObstacleDetection : MonoBehaviour
             for (int i = 0; i < Frame.PointCloud.PointCount; i++)
             {
                 //obstacle pointCloud 0.3 = 오차범위
-                if (Mathf.Abs(Frame.PointCloud.GetPointAsStruct(i).Position.y) > Mathf.Abs(_criteria + 0.3f))
+                if (Mathf.Abs(Frame.PointCloud.GetPointAsStruct(i).Position.y) <= Mathf.Abs(_criteria + 0.3f))
                 {
                     AddPointToCache(Frame.PointCloud.GetPointAsStruct(i));
-                    Debug.Log("Obstacle Point : " + Frame.PointCloud.GetPointAsStruct(i));
+                    Debug.Log("Plane Point : " + Frame.PointCloud.GetPointAsStruct(i));
                 }
             }
         }
@@ -153,7 +151,6 @@ public class ObstacleDetection : MonoBehaviour
         _cachedPoints.AddLast(new PointInfo(point, new Vector2(_defaultSize, _defaultSize),
                                              Time.time));
     }
-
     /// <summary>
     /// Updates the mesh, adding the feature points.
     /// </summary>

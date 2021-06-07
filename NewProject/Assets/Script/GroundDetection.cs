@@ -18,8 +18,9 @@ public class GroundDetection : MonoBehaviour
 
     private MeshRenderer _meshRenderer;
     // 평균값 저장
-    public static List<Vector3> _planeCenterList = new List<Vector3>();
-    
+    private static int _planeCenterCount = 100;
+    public static LinkedList<Vector3> _planeCenterList = new LinkedList<Vector3>();
+
     /// <summary>
     /// The Unity Awake() method.
     /// </summary>
@@ -85,82 +86,83 @@ public class GroundDetection : MonoBehaviour
 
         _planeCenter = _detectedPlane.CenterPose.position;
         // plane list 저장
-        _planeCenterList.Add(_planeCenter);
-        // Plane's Y Vector
-        Vector3 planeNormal = _detectedPlane.CenterPose.rotation * Vector3.up;
-        _meshRenderer.material.SetVector("_PlaneNormal", planeNormal);
+        _planeCenterList.AddLast(_planeCenter);
+        if (_planeCenterList.Count > _planeCenterCount) _planeCenterList.RemoveFirst();
+        //// Plane's Y Vector
+        //Vector3 planeNormal = _detectedPlane.CenterPose.rotation * Vector3.up;
+        //_meshRenderer.material.SetVector("_PlaneNormal", planeNormal);
 
-        int planePolygonCount = _meshVertices.Count;
-        // The following code converts a polygon to a mesh with two polygons, inner polygon
-        // renders with 100% opacity and fade out to outter polygon with opacity 0%, as shown
-        // below.  The indices shown in the diagram are used in comments below.
-        // _______________     0_______________1
-        // |             |      |4___________5|
-        // |             |      | |         | |
-        // |             | =>   | |         | |
-        // |             |      | |         | |
-        // |             |      |7-----------6|
-        // ---------------     3---------------2
-        _meshColors.Clear();
+        //int planePolygonCount = _meshVertices.Count;
+        //// The following code converts a polygon to a mesh with two polygons, inner polygon
+        //// renders with 100% opacity and fade out to outter polygon with opacity 0%, as shown
+        //// below.  The indices shown in the diagram are used in comments below.
+        //// _______________     0_______________1
+        //// |             |      |4___________5|
+        //// |             |      | |         | |
+        //// |             | =>   | |         | |
+        //// |             |      | |         | |
+        //// |             |      |7-----------6|
+        //// ---------------     3---------------2
+        //_meshColors.Clear();
 
-        // Fill transparent color to vertices 0 to 3.
-        for (int i = 0; i < planePolygonCount; ++i)
-        {
-            _meshColors.Add(Color.clear);
-        }
+        //// Fill transparent color to vertices 0 to 3.
+        //for (int i = 0; i < planePolygonCount; ++i)
+        //{
+        //    _meshColors.Add(Color.clear);
+        //}
 
-        // Feather distance 0.2 meters.
-        const float featherLength = 0.2f;
+        //// Feather distance 0.2 meters.
+        //const float featherLength = 0.2f;
 
-        // Feather scale over the distance between plane center and vertices.
-        const float featherScale = 0.2f;
+        //// Feather scale over the distance between plane center and vertices.
+        //const float featherScale = 0.2f;
 
-        //Add vertex 4 to 7. -> inner vertices
-        for (int i = 0; i < planePolygonCount; ++i)
-        {
-            Vector3 v = _meshVertices[i];
+        ////Add vertex 4 to 7. -> inner vertices
+        //for (int i = 0; i < planePolygonCount; ++i)
+        //{
+        //    Vector3 v = _meshVertices[i];
 
-            // Vector from plane center to current point
-            Vector3 d = v - _planeCenter;
-            //d.magnitude -> 벡터 길이 반환
-            float scale = 1.0f - Mathf.Min(featherLength / d.magnitude, featherScale);
-            _meshVertices.Add((scale * d) + _planeCenter);
-            _meshColors.Add(Color.white);
-        }
+        //    // Vector from plane center to current point
+        //    Vector3 d = v - _planeCenter;
+        //    //d.magnitude -> 벡터 길이 반환
+        //    float scale = 1.0f - Mathf.Min(featherLength / d.magnitude, featherScale);
+        //    _meshVertices.Add((scale * d) + _planeCenter);
+        //    _meshColors.Add(Color.white);
+        //}
 
-        _meshIndices.Clear();
-        int firstOuterVertex = 0;
-        int firstInnerVertex = planePolygonCount;
+        //_meshIndices.Clear();
+        //int firstOuterVertex = 0;
+        //int firstInnerVertex = planePolygonCount;
 
-        // Generate triangle (4, 5, 6) and (4, 6, 7). -> inner vertex
-        for (int i = 0; i < planePolygonCount - 2; ++i)
-        {
-            _meshIndices.Add(firstInnerVertex);
-            _meshIndices.Add(firstInnerVertex + i + 1);
-            _meshIndices.Add(firstInnerVertex + i + 2);
-        }
+        //// Generate triangle (4, 5, 6) and (4, 6, 7). -> inner vertex
+        //for (int i = 0; i < planePolygonCount - 2; ++i)
+        //{
+        //    _meshIndices.Add(firstInnerVertex);
+        //    _meshIndices.Add(firstInnerVertex + i + 1);
+        //    _meshIndices.Add(firstInnerVertex + i + 2);
+        //}
         // Generate triangle (0, 1, 4), (4, 1, 5), (5, 1, 2), (5, 2, 6), (6, 2, 3), (6, 3, 7)
         // (7, 3, 0), (7, 0, 4) -> outer vertex
-        for (int i = 0; i < planePolygonCount; ++i)
-        {
-            int outerVertex1 = firstOuterVertex + i;
-            int outerVertex2 = firstOuterVertex + ((i + 1) % planePolygonCount);
-            int innerVertex1 = firstInnerVertex + i;
-            int innerVertex2 = firstInnerVertex + ((i + 1) % planePolygonCount);
+        //for (int i = 0; i < planePolygonCount; ++i)
+        //{
+        //    int outerVertex1 = firstOuterVertex + i;
+        //    int outerVertex2 = firstOuterVertex + ((i + 1) % planePolygonCount);
+        //    int innerVertex1 = firstInnerVertex + i;
+        //    int innerVertex2 = firstInnerVertex + ((i + 1) % planePolygonCount);
 
-            _meshIndices.Add(outerVertex1);
-            _meshIndices.Add(outerVertex2);
-            _meshIndices.Add(innerVertex1);
+        //    _meshIndices.Add(outerVertex1);
+        //    _meshIndices.Add(outerVertex2);
+        //    _meshIndices.Add(innerVertex1);
 
-            _meshIndices.Add(innerVertex1);
-            _meshIndices.Add(outerVertex2);
-            _meshIndices.Add(innerVertex2);
-        }
+        //    _meshIndices.Add(innerVertex1);
+        //    _meshIndices.Add(outerVertex2);
+        //    _meshIndices.Add(innerVertex2);
+        //}
 
-        _mesh.Clear();
-        _mesh.SetVertices(_meshVertices);
-        _mesh.SetTriangles(_meshIndices, 0);
-        _mesh.SetColors(_meshColors);
+        //_mesh.Clear();
+        //_mesh.SetVertices(_meshVertices);
+        //_mesh.SetTriangles(_meshIndices, 0);
+        //_mesh.SetColors(_meshColors);
 
     }
 
@@ -182,13 +184,18 @@ public class GroundDetection : MonoBehaviour
         return true;
     }
     // get Center Pose List Plane의 평균값을 이용하여 기준점 정립
-    public static float getCenterPoseListAvg()
+    public static float ObstacleCriteria()
     {
         float avg = 0;
         float sum = 0;
-        for (int i = 0; i < _planeCenterList.Count; i++)
+        if (_planeCenterList.Count == 0)
         {
-            sum += _planeCenterList[i].y;
+            return avg;
+        }
+
+        foreach (var i in _planeCenterList)
+        {
+            sum += i.y;
         }
         avg = sum / _planeCenterList.Count;
         return avg;
