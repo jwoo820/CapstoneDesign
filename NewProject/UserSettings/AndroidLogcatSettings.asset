@@ -1,9 +1,9 @@
 {
     "m_SelectedDeviceId": "R3CM90EY7AY",
     "m_SelectedPackage": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "R3CM90EY7AY",
+        "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+        "processId": 31918,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -76,12 +76,6 @@
         },
         {
             "deviceId": "R3CM90EY7AY",
-            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-            "processId": 10237,
-            "exited": true
-        },
-        {
-            "deviceId": "R3CM90EY7AY",
             "name": "com.sec.android.app.launcher",
             "processId": 8848,
             "exited": false
@@ -91,6 +85,54 @@
             "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
             "processId": 11433,
             "exited": true
+        },
+        {
+            "deviceId": "R3CM90EY7AY",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 14052,
+            "exited": true
+        },
+        {
+            "deviceId": "R3CM90EY7AY",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 14965,
+            "exited": true
+        },
+        {
+            "deviceId": "R3CM90EY7AY",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 25623,
+            "exited": true
+        },
+        {
+            "deviceId": "R3CM90EY7AY",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 26386,
+            "exited": true
+        },
+        {
+            "deviceId": "R3CM90EY7AY",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 27381,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CM90EY7AY",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 29884,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CM90EY7AY",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 30948,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CM90EY7AY",
+            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
+            "processId": 31918,
+            "exited": false
         }
     ],
     "m_Tags": {

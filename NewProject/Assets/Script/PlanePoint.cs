@@ -32,7 +32,6 @@ public class PlanePoint : MonoBehaviour
 
         _screenWidthId = Shader.PropertyToID("_ScreenWidth");
         _screenHeightId = Shader.PropertyToID("_ScreenHeight");
-
         _colorId = Shader.PropertyToID("_PlaneColor");
 
         _propertyBlock = new MaterialPropertyBlock();
@@ -127,12 +126,7 @@ public class PlanePoint : MonoBehaviour
         {
             for (int i = 0; i < Frame.PointCloud.PointCount; i++)
             {
-                //obstacle pointCloud 0.3 = 오차범위
-                if (Mathf.Abs(Frame.PointCloud.GetPointAsStruct(i).Position.y) <= Mathf.Abs(_criteria + 0.3f))
-                {
-                    AddPointToCache(Frame.PointCloud.GetPointAsStruct(i));
-                    Debug.Log("Plane Point : " + Frame.PointCloud.GetPointAsStruct(i).Position);
-                }
+                AddPointToCache(Frame.PointCloud.GetPointAsStruct(i));
             }
         }
     }

@@ -476,7 +476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PointColor: {r: 1, g: 0, b: 0, a: 0}
   MaxPointsToAddPerFrame: 1
-  _maxPointCount: 100
+  _maxPointCount: 50
 --- !u!1 &995144452
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,7 +495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &995144453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,12 +505,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 995144452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e7ea57cb1b54466b823fd4a23d65f25, type: 3}
+  m_Script: {fileID: 11500000, guid: e01fac18296f14116b60fc35f74bcd6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PointColor: {r: 1, g: 1, b: 1, a: 0}
   MaxPointsToAddPerFrame: 1
-  _maxPointCount: 100
+  _maxPointCount: 50
 --- !u!23 &995144454
 MeshRenderer:
   m_ObjectHideFlags: 0

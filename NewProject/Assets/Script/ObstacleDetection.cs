@@ -33,7 +33,7 @@ public class ObstacleDetection : MonoBehaviour
         _cachedColor = PointColor;
         _screenWidthId = Shader.PropertyToID("_ScreenWidth");
         _screenHeightId = Shader.PropertyToID("_ScreenHeight");
-        _colorId = Shader.PropertyToID("_ObstacleColor");
+        _colorId = Shader.PropertyToID("_ObColor");
         _propertyBlock = new MaterialPropertyBlock();
         _meshRenderer.GetPropertyBlock(_propertyBlock);
         _propertyBlock.SetColor(_colorId, _cachedColor);
@@ -78,8 +78,6 @@ public class ObstacleDetection : MonoBehaviour
             AddAllPointsToCache();
         }
         _criteria = GroundDetection.ObstacleCriteria();
-        Debug.Log("Test : " + _criteria);
-        //Debug.Log("Size : " + GroundDetection._planeCenterList.Count);
         UpdateMesh();
     }
 
@@ -116,7 +114,7 @@ public class ObstacleDetection : MonoBehaviour
     {
         _cachedColor = PointColor;
         _meshRenderer.GetPropertyBlock(_propertyBlock);
-        _propertyBlock.SetColor("_ObstacleColor", _cachedColor);
+        _propertyBlock.SetColor("_ObColor", _cachedColor);
         _meshRenderer.SetPropertyBlock(_propertyBlock);
     }
 
@@ -129,12 +127,8 @@ public class ObstacleDetection : MonoBehaviour
         {
             for (int i = 0; i < Frame.PointCloud.PointCount; i++)
             {
-                //obstacle pointCloud 0.3 = 오차범위
-                if (Mathf.Abs(Frame.PointCloud.GetPointAsStruct(i).Position.y) > Mathf.Abs(_criteria + 0.3f))
-                {
-                    AddPointToCache(Frame.PointCloud.GetPointAsStruct(i).Position);
-                    Debug.Log("Obstacle Point : " + Frame.PointCloud.GetPointAsStruct(i));
-                }
+
+                AddPointToCache(Frame.PointCloud.GetPointAsStruct(i));
             }
         }
     }
@@ -149,9 +143,14 @@ public class ObstacleDetection : MonoBehaviour
         {
             _cachedPoints.RemoveFirst();
         }
+        if (Mathf.Abs(_criteria - point.y) > 0.5)
+        {
+            Debug.Log("Criteria : " + _criteria);
+            Debug.Log("Obstacle Point : " + point);
+            _cachedPoints.AddLast(new PointInfo(point, new Vector2(_defaultSize, _defaultSize),
+        Time.time));
+        }
 
-        _cachedPoints.AddLast(new PointInfo(point, new Vector2(_defaultSize, _defaultSize),
-                                             Time.time));
     }
 
     /// <summary>

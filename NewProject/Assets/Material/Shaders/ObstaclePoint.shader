@@ -19,7 +19,7 @@
 
 Shader "Obstacle/Shader" {
     Properties{
-        [PerRendererData] _Color("PointCloud Color", Color) = (0.121, 0.737, 0.823, 1.0)
+        [PerRendererData] _ObColor("PointCloud Color", Color) = (0.121, 0.737, 0.823, 1.0)
         [HideInInspector][PerRendererData] _ScreenWidth("", Int) = 1440
         [HideInInspector][PerRendererData] _ScreenHeight("", Int) = 2560
     }
