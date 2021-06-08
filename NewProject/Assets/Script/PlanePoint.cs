@@ -141,7 +141,7 @@ public class PlanePoint : MonoBehaviour
         {
             _cachedPoints.RemoveFirst();
         }
-        if (Mathf.Abs(_criteria - point.y) <= GroundDetection.outlier)
+        if (Mathf.Abs(_criteria - point.y) <= 0.5)
         {
             _cachedPoints.AddLast(new PointInfo(point, new Vector2(_defaultSize, _defaultSize),
                                                  Time.time));

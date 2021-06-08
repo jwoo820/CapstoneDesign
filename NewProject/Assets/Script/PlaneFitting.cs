@@ -1,32 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GoogleARCore;
-using namespace PlaneFitting
+
+namespace PlaneFitting
 {
-    public class PlaneFitting : MonoBehaviour
+    public class Fitting
     {
-        GroundDetection groundDetection;
-        float _y = 0;
-        // test1 : 임의의 평면의 y축을 변경
-        // plane Center의 값 조절
-        // Start is called before the first frame update
+        private Queue<float> list = new Queue<float>(500);
 
-        public void Start()
+        public void Ransac()
         {
+            // init data
+                // y = data
+                // x = index
+            foreach (Vector3 i in GroundDetection._planeCenterList)
+            {
+                // data
+                list.Enqueue(i.y);
+            }
 
-        }
-
-        // Update is called once per frame
-        public void Update()
-        {
-
-        }
-
-        private void setPosition(float y)
-        {
-            y = _y;
         }
     }
-
 }
+

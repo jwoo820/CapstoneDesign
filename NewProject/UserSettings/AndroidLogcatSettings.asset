@@ -1,9 +1,9 @@
 {
     "m_SelectedDeviceId": "R3CM90EY7AY",
     "m_SelectedPackage": {
-        "deviceId": "R3CM90EY7AY",
-        "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-        "processId": 27051,
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -76,18 +76,6 @@
         },
         {
             "deviceId": "R3CM90EY7AY",
-            "name": "com.sec.android.app.launcher",
-            "processId": 9218,
-            "exited": true
-        },
-        {
-            "deviceId": "R3CM90EY7AY",
-            "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-            "processId": 15885,
-            "exited": true
-        },
-        {
-            "deviceId": "R3CM90EY7AY",
             "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
             "processId": 9043,
             "exited": true
@@ -114,13 +102,13 @@
             "deviceId": "R3CM90EY7AY",
             "name": "com.google.android.googlequicksearchbox:search",
             "processId": 9004,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R3CM90EY7AY",
             "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
             "processId": 27051,
-            "exited": false
+            "exited": true
         }
     ],
     "m_Tags": {

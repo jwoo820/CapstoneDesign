@@ -13,9 +13,8 @@ public class GroundDetection : MonoBehaviour
     private List<Color> _meshColors = new List<Color>();
     // triangles index
     private List<int> _meshIndices = new List<int>();
-
     private Mesh _mesh;
-
+   
     private MeshRenderer _meshRenderer;
     // 평균값 저장
     private static int _planeCenterCount = 500;
