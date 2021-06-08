@@ -5,7 +5,7 @@ using GoogleARCore;
 public class PlaneFitting : MonoBehaviour
 {
     GroundDetection groundDetection;
-    float _y;
+    float _y = 0;
     // test1 : 임의의 평면의 y축을 변경
     // plane Center의 값 조절
     // Start is called before the first frame update

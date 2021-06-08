@@ -33,7 +33,7 @@ public class ObstacleDetection : MonoBehaviour
         _cachedColor = PointColor;
         _screenWidthId = Shader.PropertyToID("_ScreenWidth");
         _screenHeightId = Shader.PropertyToID("_ScreenHeight");
-        _colorId = Shader.PropertyToID("_Color");
+        _colorId = Shader.PropertyToID("_ObstacleColor");
         _propertyBlock = new MaterialPropertyBlock();
         _meshRenderer.GetPropertyBlock(_propertyBlock);
         _propertyBlock.SetColor(_colorId, _cachedColor);
@@ -116,7 +116,7 @@ public class ObstacleDetection : MonoBehaviour
     {
         _cachedColor = PointColor;
         _meshRenderer.GetPropertyBlock(_propertyBlock);
-        _propertyBlock.SetColor("_Color", _cachedColor);
+        _propertyBlock.SetColor("_ObstacleColor", _cachedColor);
         _meshRenderer.SetPropertyBlock(_propertyBlock);
     }
 
@@ -132,7 +132,7 @@ public class ObstacleDetection : MonoBehaviour
                 //obstacle pointCloud 0.3 = 오차범위
                 if (Mathf.Abs(Frame.PointCloud.GetPointAsStruct(i).Position.y) > Mathf.Abs(_criteria + 0.3f))
                 {
-                    AddPointToCache(Frame.PointCloud.GetPointAsStruct(i));
+                    AddPointToCache(Frame.PointCloud.GetPointAsStruct(i).Position);
                     Debug.Log("Obstacle Point : " + Frame.PointCloud.GetPointAsStruct(i));
                 }
             }

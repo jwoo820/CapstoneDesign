@@ -33,7 +33,7 @@ public class PlanePoint : MonoBehaviour
         _screenWidthId = Shader.PropertyToID("_ScreenWidth");
         _screenHeightId = Shader.PropertyToID("_ScreenHeight");
 
-        _colorId = Shader.PropertyToID("_Color");
+        _colorId = Shader.PropertyToID("_PlaneColor");
 
         _propertyBlock = new MaterialPropertyBlock();
         _meshRenderer.GetPropertyBlock(_propertyBlock);
@@ -114,7 +114,7 @@ public class PlanePoint : MonoBehaviour
     {
         _cachedColor = PointColor;
         _meshRenderer.GetPropertyBlock(_propertyBlock);
-        _propertyBlock.SetColor("_Color", _cachedColor);
+        _propertyBlock.SetColor("_PlaneColor", _cachedColor);
         _meshRenderer.SetPropertyBlock(_propertyBlock);
     }
 
@@ -131,7 +131,7 @@ public class PlanePoint : MonoBehaviour
                 if (Mathf.Abs(Frame.PointCloud.GetPointAsStruct(i).Position.y) <= Mathf.Abs(_criteria + 0.3f))
                 {
                     AddPointToCache(Frame.PointCloud.GetPointAsStruct(i));
-                    Debug.Log("Plane Point : " + Frame.PointCloud.GetPointAsStruct(i));
+                    Debug.Log("Plane Point : " + Frame.PointCloud.GetPointAsStruct(i).Position);
                 }
             }
         }

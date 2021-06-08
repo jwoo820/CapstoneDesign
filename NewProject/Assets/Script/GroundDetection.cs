@@ -18,7 +18,7 @@ public class GroundDetection : MonoBehaviour
 
     private MeshRenderer _meshRenderer;
     // 평균값 저장
-    private static int _planeCenterCount = 100;
+    private static int _planeCenterCount = 200;
     public static LinkedList<Vector3> _planeCenterList = new LinkedList<Vector3>();
 
     /// <summary>
@@ -62,7 +62,7 @@ public class GroundDetection : MonoBehaviour
     public void Initialize(DetectedPlane plane)
     {
         _detectedPlane = plane;
-        _meshRenderer.material.SetColor("_GridColor", Color.white);
+        _meshRenderer.material.SetColor("_GridColor", Color.green);
         _meshRenderer.material.SetFloat("_UvRotation", Random.Range(0.0f, 360.0f));
 
         Update();

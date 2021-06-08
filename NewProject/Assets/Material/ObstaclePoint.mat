@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PointCloud
-  m_Shader: {fileID: 4800000, guid: 9d889a88b50cc4d65b025d5068d78df6, type: 3}
+  m_Name: ObstaclePoint
+  m_Shader: {fileID: 4800000, guid: 9ffabba3e587c4caabd9a8270557264c, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
