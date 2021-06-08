@@ -18,9 +18,10 @@ public class GroundDetection : MonoBehaviour
 
     private MeshRenderer _meshRenderer;
     // 평균값 저장
-    private static int _planeCenterCount = 200;
+    private static int _planeCenterCount = 500;
     public static LinkedList<Vector3> _planeCenterList = new LinkedList<Vector3>();
-
+    // 오차 허용 범위
+    public static float outlier = 0.2f;
     /// <summary>
     /// The Unity Awake() method.
     /// </summary>

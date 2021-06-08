@@ -143,7 +143,7 @@ public class ObstacleDetection : MonoBehaviour
         {
             _cachedPoints.RemoveFirst();
         }
-        if (Mathf.Abs(_criteria - point.y) > 0.5)
+        if (Mathf.Abs(_criteria - point.y) > GroundDetection.outlier)
         {
             Debug.Log("Criteria : " + _criteria);
             Debug.Log("Obstacle Point : " + point);

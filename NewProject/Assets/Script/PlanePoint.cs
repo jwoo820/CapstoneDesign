@@ -141,9 +141,11 @@ public class PlanePoint : MonoBehaviour
         {
             _cachedPoints.RemoveFirst();
         }
-
-        _cachedPoints.AddLast(new PointInfo(point, new Vector2(_defaultSize, _defaultSize),
-                                             Time.time));
+        if (Mathf.Abs(_criteria - point.y) <= GroundDetection.outlier)
+        {
+            _cachedPoints.AddLast(new PointInfo(point, new Vector2(_defaultSize, _defaultSize),
+                                                 Time.time));
+        }
     }
     /// <summary>
     /// Updates the mesh, adding the feature points.

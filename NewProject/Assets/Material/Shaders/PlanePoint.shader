@@ -44,7 +44,7 @@ Shader "Plane/Shader" {
                 float2 radius : TEXCOORD1;
             };
 
-            fixed4 _Color;
+            fixed4 _PlaneColor;
             int _ScreenWidth;
             int _ScreenHeight;
 
@@ -75,7 +75,7 @@ Shader "Plane/Shader" {
                 {
                     discard;
                 }
-                return _Color;
+                return _PlaneColor;
             }
             ENDCG
         }

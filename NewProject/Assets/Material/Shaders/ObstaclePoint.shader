@@ -44,7 +44,7 @@ Shader "Obstacle/Shader" {
                 float2 radius : TEXCOORD1;
             };
 
-            fixed4 _Color;
+            fixed4 _ObColor;
             int _ScreenWidth;
             int _ScreenHeight;
 
@@ -75,7 +75,7 @@ Shader "Obstacle/Shader" {
                 {
                     discard;
                 }
-                return _Color;
+                return _ObColor;
             }
             ENDCG
         }
