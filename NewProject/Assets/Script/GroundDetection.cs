@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using GoogleARCore;
 using System;
-using System.Threading;
 public class GroundDetection : MonoBehaviour
 {
     public static float real_y = 0;
-    private Thread thread;
     private static DetectedPlane _detectedPlane;
     // Keep previous frame's mesh polygon to avoid mesh update every frame.
     private List<Vector3> _previousFrameMeshVertices = new List<Vector3>();
@@ -18,21 +16,8 @@ public class GroundDetection : MonoBehaviour
     // Max Plane Center List -> Data의 최대 갯수
     private static int _planeCenterCount = 100;
     public static LinkedList<Vector3> _planeCenterList = new LinkedList<Vector3>();
-    public static float outlier = 0.2f;
-    public void Start()
-    {
-        thread = new Thread(UpdateThread);
-    }
-    public void OnDestroy()
-    {
-        thread.Abort();
-        thread = null;
-    }
-    private void UpdateThread()
-    {
-        Thread.Sleep(1000);
-        //Ransac();
-    }
+    public static float _outlier = 0.2f;
+    public static float 
     public void Awake()
     {
         _mesh = GetComponent<MeshFilter>().mesh;
@@ -69,10 +54,10 @@ public class GroundDetection : MonoBehaviour
         }
 
         _meshRenderer.enabled = true;
-        //Debug.Log("Criteria : " + GroundDetection.ObstacleCriteria());
+
+        Ransac();
         
-            Ransac();
-        
+
         UpdateMeshIfNeeded();
     }
 
@@ -92,8 +77,6 @@ public class GroundDetection : MonoBehaviour
         _previousFrameMeshVertices.AddRange(_meshVertices);
 
         _planeCenter = _detectedPlane.CenterPose.position;
-        //Debug.Log("Plane Position : " + _planeCenter);
-        //Debug.Log("Plane Count : " + _planeCenterList.Count);
         MaxPlaneCenterList(_planeCenter);
 
     }
@@ -124,39 +107,39 @@ public class GroundDetection : MonoBehaviour
 
         return true;
     }
-    
+
     // ransac을 통한 Plane Fitting
     public static void Ransac()
     {
-        int c_max = 0;
-        int c_cnt = 0;
-        float T = 0.2f;
+        double c_max = 0;
+        double c_cnt = 0;
+        float T = 0.15f;
+        //double distance = 0; 
 
         int y_cnt = _planeCenterList.Count;
         float tmp_y = 0;
-        
+
         foreach (Vector3 i in _planeCenterList)
         {
             tmp_y = i.y;
             foreach (Vector3 j in _planeCenterList)
             {
-
                 if (Math.Abs(tmp_y - j.y) <= T)
-                    c_cnt++;
+                {
+                    c_cnt ++;
+                }
             }
-           
-          
+
             if (c_cnt > c_max)
             {
                 c_max = c_cnt;
                 real_y = tmp_y;
-
             }
+
             c_cnt = 0;
-            
         }
         Debug.Log("real_y : " + real_y);
-        Debug.Log("y_count : " + y_cnt);
+        //Debug.Log("y_count : " + y_cnt);
 
     }
 }

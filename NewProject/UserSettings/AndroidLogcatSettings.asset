@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R3CM90EY7AY",
         "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-        "processId": 14873,
+        "processId": 983,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -83,43 +83,49 @@
         {
             "deviceId": "R3CM90EY7AY",
             "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-            "processId": 12032,
+            "processId": 28532,
             "exited": true
         },
         {
             "deviceId": "R3CM90EY7AY",
             "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-            "processId": 12629,
+            "processId": 28947,
             "exited": true
         },
         {
             "deviceId": "R3CM90EY7AY",
             "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-            "processId": 13161,
+            "processId": 29560,
             "exited": true
         },
         {
             "deviceId": "R3CM90EY7AY",
             "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-            "processId": 13602,
+            "processId": 31908,
             "exited": true
         },
         {
             "deviceId": "R3CM90EY7AY",
             "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-            "processId": 14003,
+            "processId": 32370,
             "exited": true
         },
         {
             "deviceId": "R3CM90EY7AY",
             "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-            "processId": 14395,
+            "processId": 983,
             "exited": false
         },
         {
-            "deviceId": "R3CM90EY7AY",
+            "deviceId": "192.168.0.203:5555",
             "name": "com.DefaultCompany.AndroidAR_Obstacle_Detection",
-            "processId": 14873,
+            "processId": 30117,
+            "exited": true
+        },
+        {
+            "deviceId": "192.168.0.203:5555",
+            "name": "com.sec.android.app.launcher",
+            "processId": 6459,
             "exited": false
         }
     ],
