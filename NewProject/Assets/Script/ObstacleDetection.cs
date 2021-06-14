@@ -77,7 +77,8 @@ public class ObstacleDetection : MonoBehaviour
         {
             AddAllPointsToCache();
         }
-        _criteria = GroundDetection.ObstacleCriteria();
+        //_criteria = GroundDetection.ObstacleCriteria();
+        _criteria = GroundDetection.real_y;
         UpdateMesh();
     }
 
@@ -127,7 +128,6 @@ public class ObstacleDetection : MonoBehaviour
         {
             for (int i = 0; i < Frame.PointCloud.PointCount; i++)
             {
-
                 AddPointToCache(Frame.PointCloud.GetPointAsStruct(i));
             }
         }
@@ -145,8 +145,6 @@ public class ObstacleDetection : MonoBehaviour
         }
         if (Mathf.Abs(_criteria - point.y) > GroundDetection.outlier)
         {
-            Debug.Log("Criteria : " + _criteria);
-            Debug.Log("Obstacle Point : " + point);
             _cachedPoints.AddLast(new PointInfo(point, new Vector2(_defaultSize, _defaultSize),
         Time.time));
         }

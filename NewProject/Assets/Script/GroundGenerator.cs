@@ -17,7 +17,6 @@ public class GroundGenerator : MonoBehaviour
     /// used across the application to avoid per-frame allocations.
     /// </summary>
     private List<DetectedPlane> _newPlanes = new List<DetectedPlane>();
-
     /// <summary>
     /// The Unity Update method.
     /// </summary>
@@ -32,12 +31,11 @@ public class GroundGenerator : MonoBehaviour
         // Iterate over planes found in this frame and instantiate corresponding GameObjects to
         // visualize them.
         Session.GetTrackables<DetectedPlane>(_newPlanes, TrackableQueryFilter.New);
-        
         for (int i = 0; i < _newPlanes.Count; i++)
         {
             // Instantiate a plane visualization prefab and set it to track the new plane. The
             // transform is set to the origin with an identity rotation since the mesh for our
-            // prefab is updated in Unity World coordinates
+            // prefab is updated in Unity World coordinates.
             GameObject planeObject =
                 Instantiate(DetectedPlanePrefab, Vector3.zero, Quaternion.identity, transform);
             planeObject.GetComponent<GroundDetection>().Initialize(_newPlanes[i]);

@@ -18,6 +18,7 @@ public class PlanePoint : MonoBehaviour
     private Color _cachedColor;
     private LinkedList<PointInfo> _cachedPoints;
     // 장애물 기준점 결정
+
     private float _criteria;
     void Start()
     {
@@ -76,7 +77,8 @@ public class PlanePoint : MonoBehaviour
         {
             AddAllPointsToCache();
         }
-        _criteria = GroundDetection.ObstacleCriteria();
+        //_criteria = GroundDetection.ObstacleCriteria();
+        _criteria = GroundDetection.real_y;
         UpdateMesh();
     }
 
@@ -141,7 +143,7 @@ public class PlanePoint : MonoBehaviour
         {
             _cachedPoints.RemoveFirst();
         }
-        if (Mathf.Abs(_criteria - point.y) <= 0.5)
+        if (Mathf.Abs(_criteria - point.y) <= GroundDetection.outlier)
         {
             _cachedPoints.AddLast(new PointInfo(point, new Vector2(_defaultSize, _defaultSize),
                                                  Time.time));

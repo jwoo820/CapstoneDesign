@@ -2,32 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GoogleARCore;
-
+using System;
+using System.Threading;
 public class GroundDetection : MonoBehaviour
 {
+    public static float real_y = 0;
+    private Thread thread;
     private static DetectedPlane _detectedPlane;
     // Keep previous frame's mesh polygon to avoid mesh update every frame.
     private List<Vector3> _previousFrameMeshVertices = new List<Vector3>();
     private List<Vector3> _meshVertices = new List<Vector3>();
     public Vector3 _planeCenter = new Vector3();
-    private List<Color> _meshColors = new List<Color>();
-    // triangles index
-    private List<int> _meshIndices = new List<int>();
     private Mesh _mesh;
-   
     private MeshRenderer _meshRenderer;
-    // 평균값 저장
-    private static int _planeCenterCount = 500;
+    // Max Plane Center List -> Data의 최대 갯수
+    private static int _planeCenterCount = 100;
     public static LinkedList<Vector3> _planeCenterList = new LinkedList<Vector3>();
-    // 오차 허용 범위
     public static float outlier = 0.2f;
-    /// <summary>
-    /// The Unity Awake() method.
-    /// </summary>
+    public void Start()
+    {
+        thread = new Thread(UpdateThread);
+    }
+    public void OnDestroy()
+    {
+        thread.Abort();
+        thread = null;
+    }
+    private void UpdateThread()
+    {
+        Thread.Sleep(1000);
+        //Ransac();
+    }
     public void Awake()
     {
         _mesh = GetComponent<MeshFilter>().mesh;
         _meshRenderer = GetComponent<UnityEngine.MeshRenderer>();
+    }
+
+    public void Initialize(DetectedPlane plane)
+    {
+        _detectedPlane = plane;
+        _meshRenderer.material.SetColor("_GridColor", Color.white);
+        _meshRenderer.material.SetFloat("_UvRotation", UnityEngine.Random.Range(0.0f, 360.0f));
+
+        Update();
     }
 
     /// <summary>
@@ -51,21 +69,11 @@ public class GroundDetection : MonoBehaviour
         }
 
         _meshRenderer.enabled = true;
-
+        //Debug.Log("Criteria : " + GroundDetection.ObstacleCriteria());
+        
+            Ransac();
+        
         UpdateMeshIfNeeded();
-    }
-
-    /// <summary>
-    /// Initializes the DetectedPlaneVisualizer with a DetectedPlane.
-    /// </summary>
-    /// <param name="plane">The plane to vizualize.</param>
-    public void Initialize(DetectedPlane plane)
-    {
-        _detectedPlane = plane;
-        _meshRenderer.material.SetColor("_GridColor", Color.green);
-        _meshRenderer.material.SetFloat("_UvRotation", Random.Range(0.0f, 360.0f));
-
-        Update();
     }
 
     /// <summary>
@@ -73,7 +81,6 @@ public class GroundDetection : MonoBehaviour
     /// </summary>
     private void UpdateMeshIfNeeded()
     {
-        // 여기서 point 받아옴 확인함@@@@@
         _detectedPlane.GetBoundaryPolygon(_meshVertices);
 
         if (AreVerticesListsEqual(_previousFrameMeshVertices, _meshVertices))
@@ -85,87 +92,21 @@ public class GroundDetection : MonoBehaviour
         _previousFrameMeshVertices.AddRange(_meshVertices);
 
         _planeCenter = _detectedPlane.CenterPose.position;
-        // plane list 저장
-        _planeCenterList.AddLast(_planeCenter);
-        if (_planeCenterList.Count > _planeCenterCount) _planeCenterList.RemoveFirst();
-        //// Plane's Y Vector
-        //Vector3 planeNormal = _detectedPlane.CenterPose.rotation * Vector3.up;
-        //_meshRenderer.material.SetVector("_PlaneNormal", planeNormal);
-
-        //int planePolygonCount = _meshVertices.Count;
-        //// The following code converts a polygon to a mesh with two polygons, inner polygon
-        //// renders with 100% opacity and fade out to outter polygon with opacity 0%, as shown
-        //// below.  The indices shown in the diagram are used in comments below.
-        //// _______________     0_______________1
-        //// |             |      |4___________5|
-        //// |             |      | |         | |
-        //// |             | =>   | |         | |
-        //// |             |      | |         | |
-        //// |             |      |7-----------6|
-        //// ---------------     3---------------2
-        //_meshColors.Clear();
-
-        //// Fill transparent color to vertices 0 to 3.
-        //for (int i = 0; i < planePolygonCount; ++i)
-        //{
-        //    _meshColors.Add(Color.clear);
-        //}
-
-        //// Feather distance 0.2 meters.
-        //const float featherLength = 0.2f;
-
-        //// Feather scale over the distance between plane center and vertices.
-        //const float featherScale = 0.2f;
-
-        ////Add vertex 4 to 7. -> inner vertices
-        //for (int i = 0; i < planePolygonCount; ++i)
-        //{
-        //    Vector3 v = _meshVertices[i];
-
-        //    // Vector from plane center to current point
-        //    Vector3 d = v - _planeCenter;
-        //    //d.magnitude -> 벡터 길이 반환
-        //    float scale = 1.0f - Mathf.Min(featherLength / d.magnitude, featherScale);
-        //    _meshVertices.Add((scale * d) + _planeCenter);
-        //    _meshColors.Add(Color.white);
-        //}
-
-        //_meshIndices.Clear();
-        //int firstOuterVertex = 0;
-        //int firstInnerVertex = planePolygonCount;
-
-        //// Generate triangle (4, 5, 6) and (4, 6, 7). -> inner vertex
-        //for (int i = 0; i < planePolygonCount - 2; ++i)
-        //{
-        //    _meshIndices.Add(firstInnerVertex);
-        //    _meshIndices.Add(firstInnerVertex + i + 1);
-        //    _meshIndices.Add(firstInnerVertex + i + 2);
-        //}
-        // Generate triangle (0, 1, 4), (4, 1, 5), (5, 1, 2), (5, 2, 6), (6, 2, 3), (6, 3, 7)
-        // (7, 3, 0), (7, 0, 4) -> outer vertex
-        //for (int i = 0; i < planePolygonCount; ++i)
-        //{
-        //    int outerVertex1 = firstOuterVertex + i;
-        //    int outerVertex2 = firstOuterVertex + ((i + 1) % planePolygonCount);
-        //    int innerVertex1 = firstInnerVertex + i;
-        //    int innerVertex2 = firstInnerVertex + ((i + 1) % planePolygonCount);
-
-        //    _meshIndices.Add(outerVertex1);
-        //    _meshIndices.Add(outerVertex2);
-        //    _meshIndices.Add(innerVertex1);
-
-        //    _meshIndices.Add(innerVertex1);
-        //    _meshIndices.Add(outerVertex2);
-        //    _meshIndices.Add(innerVertex2);
-        //}
-
-        //_mesh.Clear();
-        //_mesh.SetVertices(_meshVertices);
-        //_mesh.SetTriangles(_meshIndices, 0);
-        //_mesh.SetColors(_meshColors);
+        //Debug.Log("Plane Position : " + _planeCenter);
+        //Debug.Log("Plane Count : " + _planeCenterList.Count);
+        MaxPlaneCenterList(_planeCenter);
 
     }
 
+    public static void MaxPlaneCenterList(Vector3 Center)
+    {
+        // plane list 저장, criteria Num
+        _planeCenterList.AddLast(Center);
+        if (_planeCenterList.Count >= _planeCenterCount)
+        {
+            _planeCenterList.RemoveFirst();
+        }
+    }
     private bool AreVerticesListsEqual(List<Vector3> firstList, List<Vector3> secondList)
     {
         if (firstList.Count != secondList.Count)
@@ -183,21 +124,39 @@ public class GroundDetection : MonoBehaviour
 
         return true;
     }
-    // get Center Pose List Plane의 평균값을 이용하여 기준점 정립
-    public static float ObstacleCriteria()
+    
+    // ransac을 통한 Plane Fitting
+    public static void Ransac()
     {
-        float avg = 0;
-        float sum = 0;
-        if (_planeCenterList.Count == 0)
-        {
-            return avg;
-        }
+        int c_max = 0;
+        int c_cnt = 0;
+        float T = 0.2f;
 
-        foreach (var i in _planeCenterList)
+        int y_cnt = _planeCenterList.Count;
+        float tmp_y = 0;
+        
+        foreach (Vector3 i in _planeCenterList)
         {
-            sum += i.y;
+            tmp_y = i.y;
+            foreach (Vector3 j in _planeCenterList)
+            {
+
+                if (Math.Abs(tmp_y - j.y) <= T)
+                    c_cnt++;
+            }
+           
+          
+            if (c_cnt > c_max)
+            {
+                c_max = c_cnt;
+                real_y = tmp_y;
+
+            }
+            c_cnt = 0;
+            
         }
-        avg = sum / _planeCenterList.Count;
-        return avg;
+        Debug.Log("real_y : " + real_y);
+        Debug.Log("y_count : " + y_cnt);
+
     }
 }
