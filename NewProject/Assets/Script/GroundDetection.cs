@@ -14,11 +14,10 @@ public class GroundDetection : MonoBehaviour
     private Mesh _mesh;
     private MeshRenderer _meshRenderer;
     // Max Plane Center List -> Data의 최대 갯수
-    private static int _planeCenterCount = 300;
+    private static int _planeCenterCount = 100;
     public static LinkedList<Vector3> _planeCenterList = new LinkedList<Vector3>();
     public static float _outlier = 0.2f;
     public static LinkedList<float> _yAxis = new LinkedList<float>();
-    public static float _criteria = 0;
     public void Awake()
     {
         _mesh = GetComponent<MeshFilter>().mesh;
@@ -57,8 +56,7 @@ public class GroundDetection : MonoBehaviour
         _meshRenderer.enabled = true;
 
         Ransac();
-        Criteria();
-
+        
         UpdateMeshIfNeeded();
     }
 
@@ -114,7 +112,7 @@ public class GroundDetection : MonoBehaviour
     {
         double c_max = 0;
         double c_cnt = 0;
-        float T = 0.15f;
+        float T = 0.05f;
 
         if (_planeCenterList.Count == 0) return;
 
@@ -140,25 +138,7 @@ public class GroundDetection : MonoBehaviour
 
             c_cnt = 0;
         }
-        _yAxis.AddLast(real_y);
-
-        if (_yAxis.Count == 30) _yAxis.RemoveFirst();
         //Debug.Log("y_count : " + y_cnt);
-
-    }
-    private void Criteria()
-    {
-        if (_yAxis.Count == 0) return;
-
-        foreach (float i in _yAxis)
-        {
-            _criteria += i;
-        }
-
-        _criteria /= _yAxis.Count;
-    }
-    private void ROI()
-    {
 
     }
 }

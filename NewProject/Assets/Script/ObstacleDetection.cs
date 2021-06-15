@@ -78,7 +78,7 @@ public class ObstacleDetection : MonoBehaviour
             AddAllPointsToCache();
         }
         //_criteria = GroundDetection.ObstacleCriteria();
-        _criteria = GroundDetection._criteria;
+        _criteria = GroundDetection.real_y;
         UpdateMesh();
     }
 
