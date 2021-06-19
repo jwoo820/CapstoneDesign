@@ -6,17 +6,12 @@ public class ROI : MonoBehaviour
 {
     // 1. ROI 평면 부터 계산
     // Start is called before the first frame update
-    private int _depthUp, _depthDown, _width, _height;
-    void Start()
+    private static float roiRadius = 3.0f;
+    public static bool RoiCheck(Vector3 point)
     {
-        _depthUp = 0;
-        _depthDown = 0;
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Vector3 check = Frame.Pose.position - point;
+        float size = Vector3.Magnitude(check);
+        if (size > roiRadius) return false;
+        else return true;
     }
 }

@@ -142,6 +142,7 @@ public class PlanePoint : MonoBehaviour
         {
             _cachedPoints.RemoveFirst();
         }
+        if (!ROI.RoiCheck(point)) return;
         if (Mathf.Abs(_criteria - point.y) <= GroundDetection._outlier)
         {
             _cachedPoints.AddLast(new PointInfo(point, new Vector2(_defaultSize, _defaultSize),

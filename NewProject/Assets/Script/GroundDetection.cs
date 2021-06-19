@@ -83,6 +83,7 @@ public class GroundDetection : MonoBehaviour
     public static void MaxPlaneCenterList(Vector3 Center)
     {
         // plane list 저장, criteria Num
+        if (!ROI.RoiCheck(Center)) return;
         _planeCenterList.AddLast(Center);
         if (_planeCenterList.Count >= _planeCenterCount)
         {
