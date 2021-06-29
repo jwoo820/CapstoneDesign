@@ -56,7 +56,6 @@ public class GroundDetection : MonoBehaviour
         _meshRenderer.enabled = true;
 
         Ransac();
-        
         UpdateMeshIfNeeded();
     }
 
@@ -77,7 +76,7 @@ public class GroundDetection : MonoBehaviour
 
         _planeCenter = _detectedPlane.CenterPose.position;
         MaxPlaneCenterList(_planeCenter);
-
+        //Debug.Log("List : " + _planeCenterList.Count);
     }
 
     public static void MaxPlaneCenterList(Vector3 Center)
